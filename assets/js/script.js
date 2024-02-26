@@ -15,7 +15,7 @@ $("#formulario").submit(function (event) {
   } else {
     $(".errorTexto").html("");
   }
-  $(".resultado").html("Este es tu Super Heroe:").css("color", "green");
+  $(".resultado").html("Este es tu Súper Heroe:").css("color", "green");
   buscarHeroe(searchHeroe);
 });
 
@@ -34,12 +34,11 @@ function buscarHeroe(numeroHeroe) {
       error: function (xhr, status, error) {},
     });
   }
-  //Tarjeta de Super Heroe
+  //Funcion Datos de Super Heroe
   function renderizarTarjeta(response) {
     let superhero = {
       nombre: response.name,
       imagen: response.image.url,
-      powerstats: response.powerstats,
       apariciones: response.biography["first-appearance"],
       alineacion: response.biography.alignment,
       peso: response.appearance.weight,
@@ -48,8 +47,18 @@ function buscarHeroe(numeroHeroe) {
       publisher: response.biography.publisher,
       conexiones: response.connections["group-affiliation"],
       relatives: response.connections.relatives,
+      powerstats: {
+        intelligence: parseInt(response.powerstats.intelligence) || "No disponible",
+        strength: parseInt(response.powerstats.strength) || "No disponible",
+        speed: parseInt(response.powerstats.speed) || "No disponible",
+        durability: parseInt(response.powerstats.durability) || "No disponible",
+        power: parseInt(response.powerstats.power) || "No disponible",
+        combat: parseInt(response.powerstats.combat) || "No disponible",
+    },
     };
- 
+
+    
+ //Tarjeta de Super Heroe
     let tarjetaHTML = `
     <div class="card mb-3" style="max-width: 540px;">
     <div class="row g-0">
@@ -68,7 +77,7 @@ function buscarHeroe(numeroHeroe) {
                       <p class="card-text"><b>Ocupación: </b>${superhero.ocupacion}</p>
                       <p class="card-text"><b>Super poderes:</b></p>
                       <ul class="list-group list-group-flush">
-                      <li class="list-group-item"><b>Durabilidady:</b> ${superhero.powerstats.durability}</li>
+                      <li class="list-group-item"><b>Durabilidady:</b> ${superhero.powerstats.durability} </li>
                       <li class="list-group-item"><b>Rapidez: </b>${superhero.powerstats.speed}</li>
                       <li class="list-group-item"><b>Fuerza:</b> ${superhero.powerstats.strength}</li>
                       <li class="list-group-item"><b>Poder: </b>${superhero.powerstats.power}</li>
@@ -81,7 +90,7 @@ function buscarHeroe(numeroHeroe) {
           `;
   
     $("#resultado").html(tarjetaHTML);
-    
+
   //Grafico de super heroe
     let chart = new CanvasJS.Chart("graficoHeroe", {
       theme: "light2",
@@ -99,18 +108,17 @@ function buscarHeroe(numeroHeroe) {
           legendText: "{label}",
           indexLabelFontSize: 16,
           indexLabel: "{label} - {y}%",
-          dataPoints: [
-            { y: superhero.powerstats.intelligence, label: "Inteligencia" },
-            { y: superhero.powerstats.strength, label: "Fuerza" },
-            { y: superhero.powerstats.speed, label: "Rapidez" },
-            { y: superhero.powerstats.durability, label: "Durabilidad" },
-            { y: superhero.powerstats.power, label: "Poder" },
-            { y: superhero.powerstats.combat, label: "Combate" },
-          ],
+           dataPoints: [
+          { y: parseInt(superhero.powerstats.intelligence) || 0, label: "Inteligencia" },
+          { y: parseInt(superhero.powerstats.strength) || 0, label: "Fuerza" },
+          { y: parseInt(superhero.powerstats.speed) || 0, label: "Rapidez" },
+          { y: parseInt(superhero.powerstats.durability) || 0, label: "Durabilidad" },
+          { y: parseInt(superhero.powerstats.power) || 0, label: "Poder" },
+          { y: parseInt(superhero.powerstats.combat) || 0, label: "Combate" },
+        ],
         },
       ],
     });
-  
     chart.render();
   }
   
