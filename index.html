@@ -53,16 +53,23 @@
           <nav>
             <div class="container-fluid">
               <h1 class="">Encuentra tu Super Hero</h1>
-              <form class="d-flex">
+              <form class="d-flex" id="formulario">
                 <div class="mb-3">
-                  <label for="searchText" class="form-label">Ingresa el número del Super Hero a buscar:</label>
+                  <label for="searchText" class="form-label"
+                    >Ingresa el número del Super Hero a buscar:</label
+                  >
                   <input
                     type="text"
                     class="form-control"
-                    id="searchText"
+                    id="searchHeroe"
                     aria-label="Ingrese el texto"
                   />
-                  <button type="submit" class="btn btn-danger mt-3">
+                  <p
+                    class="errorTexto"
+                    style="color: red; font-style: italic; margin-top: 10px;"
+                  ></p>
+                  <p class="resultado"></p>
+                  <button type="submit" class="btn btn-danger mt-3" id="button">
                     Buscar
                   </button>
                 </div>
@@ -72,8 +79,6 @@
         </div>
       </div>
     </div>
-    
-    
 
     <!-- Formulario Buscador -->
 
