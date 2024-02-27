@@ -34,7 +34,7 @@ function buscarHeroe(numeroHeroe) {
       error: function (xhr, status, error) {},
     });
   }
-  //Funcion Datos de Super Heroe
+  //Función Datos de Super Heroe
   function renderizarTarjeta(response) {
     let superhero = {
       nombre: response.name,
